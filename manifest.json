@@ -2,7 +2,7 @@
   "description": "Insurance fees calculation for finfo.tw",
   "manifest_version": 2,
   "name": "finfo",
-  "version": "1.0",
+  "version": "1.1",
   "homepage_url": "https://github.com/mlouielu/finfo-web-extension",
   "icons": {
     "48": "icons/border-48.png"
