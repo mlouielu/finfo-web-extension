@@ -28,7 +28,7 @@ function processFees() {
 	  if (!pd.classList.contains('hide')) {
 		calculate_it = 1;
 		if (first_age === 0) {
-		  first_age = parseInt(pd.getElementsByClassName('age')[0].innerHTML.match(/\d+/gm));
+		  first_age = parseInt(pd.getElementsByClassName('age')[0].textContent.match(/\d+/gm));
 		}
 	  }
 
@@ -37,7 +37,7 @@ function processFees() {
 	  }
 
 	  regex.lastIndex = 0;
-	  let price_re = regex.exec(pd.getElementsByClassName('price')[0].innerHTML);
+	  let price_re = regex.exec(pd.getElementsByClassName('price')[0].textContent);
 	  if (price_re) {
 		let price = parseInt(price_re[1].replace(',', ''));
 		prices.push(price);
@@ -62,8 +62,8 @@ function processFees() {
 	  d.appendChild(age);
 	  d.appendChild(price);
 
-	  age.innerHTML = `${first_age}~${first_age + align} 歲`
-	  price.innerHTML = formatter.format(prices.slice(0, align).reduce((a, b) => a + b)) + ' 元';
+	  age.textContent = `${first_age}~${first_age + align} 歲`
+	  price.textContent = formatter.format(prices.slice(0, align).reduce((a, b) => a + b)) + ' 元';
 	  tab.appendChild(d);
 
 	  // Move to align year
@@ -84,8 +84,8 @@ function processFees() {
 		continue;
 	  }
 
-	  age.innerHTML = `${first_age + i * 5}~${first_age + i * 5 + prices.slice(align + i * 5, align + (i + 1) * 5).length - 1} 歲`
-	  price.innerHTML = formatter.format(prices.slice(align + i * 5, align + (i + 1) * 5).reduce((a, b) => a + b)) + ' 元';
+	  age.textContent = `${first_age + i * 5}~${first_age + i * 5 + prices.slice(align + i * 5, align + (i + 1) * 5).length - 1} 歲`
+	  price.textContent = formatter.format(prices.slice(align + i * 5, align + (i + 1) * 5).reduce((a, b) => a + b)) + ' 元';
 
 	  d.appendChild(age);
 	  d.appendChild(price);
@@ -102,8 +102,8 @@ function processFees() {
 	price.className = 'price';
 	d.appendChild(age);
 	d.appendChild(price);
-	age.innerHTML = '總費用'
-	price.innerHTML = formatter.format(prices.reduce((a, b) => a + b)) + ' 元';
+	age.textContent = '總費用'
+	price.textContent = formatter.format(prices.reduce((a, b) => a + b)) + ' 元';
 	tab.appendChild(d);
   }
 }
