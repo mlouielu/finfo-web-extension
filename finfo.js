@@ -10,6 +10,19 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
     }
 }
 
+function defaultDict(type) {
+    var dict = {};
+    return {
+        get: function (key) {
+        if (!dict[key]) {
+            dict[key] = type.constructor();
+        }
+        return dict[key];
+        },
+        dict: dict
+    };
+}
+
 function removeOldDivs() {
   document.getElementsByClassName('yolo').remove();
 }
@@ -19,6 +32,7 @@ function processFees() {
   const formatter = new Intl.NumberFormat('zh-TW');
 
   var tabs = document.getElementsByClassName('premium-tab');
+  var contract_end = new defaultDict([]);
   for (let tab of tabs) {
 	let first_age = 0;
 	let calculate_it = 0;
@@ -48,6 +62,10 @@ function processFees() {
 	if (!prices.length) {
 	  continue;
 	}
+
+	// Which year it end?
+	contract_name = document.querySelectorAll(`[data-tab-index="${tab.getAttribute("data-tab-index")}"]`)[0].textContent;
+	contract_end.get(first_age + prices.length).push(contract_name);
 
 	// Align to 5 years
 	let align = (5 - (first_age % 5)) % 5;
@@ -106,6 +124,37 @@ function processFees() {
 	price.textContent = formatter.format(prices.reduce((a, b) => a + b)) + ' 元';
 	tab.appendChild(d);
   }
+
+  // Add contract end year to first tab
+  let page = document.getElementsByClassName('premium-page')[0];
+  let table = document.createElement('div');
+  let d = document.createElement('div');
+  table.className = 'premium-table yolo';
+  d.className = 'premium-tab';
+
+  for (const [k, v] of Object.entries(contract_end.dict)) {
+	let pd = document.createElement('div');
+	let age = document.createElement('div');
+	let price = document.createElement('div');
+	pd.className = 'premium-div';
+	pd.style = 'width: 20%';
+	age.className = 'age';
+	price.className = 'price';
+
+	age.textContent = `${k} 歲起停繳`;
+	for (let name of v) {
+	  let p = document.createElement('p');
+	  p.textContent = name;
+	  price.appendChild(p);
+	}
+
+	pd.appendChild(age);
+	pd.appendChild(price);
+	d.appendChild(pd);
+  }
+
+  table.appendChild(d);
+  page.appendChild(table);
 }
 
 var observer = new MutationObserver(function(mutations) {
