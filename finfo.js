@@ -132,12 +132,13 @@ function processFees() {
   table.className = 'premium-table yolo';
   d.className = 'premium-tab';
 
+  width = 100 / Object.keys(contract_end.dict).length;
   for (const [k, v] of Object.entries(contract_end.dict)) {
 	let pd = document.createElement('div');
 	let age = document.createElement('div');
 	let price = document.createElement('div');
 	pd.className = 'premium-div';
-	pd.style = 'width: 20%';
+	pd.style = `width: ${width}%`;
 	age.className = 'age';
 	price.className = 'price';
 
