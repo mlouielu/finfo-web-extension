@@ -50,8 +50,8 @@ function processFees() {
 	}
 
 	// Align to 5 years
-	let align = (5 - (first_age % 5));
-	if (align != 5) {
+	let align = (5 - (first_age % 5)) % 5;
+	if (align) {
 	  let d = document.createElement('div');
 	  let age = document.createElement('div');
 	  let price = document.createElement('div');
