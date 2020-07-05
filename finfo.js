@@ -176,6 +176,7 @@ function processFees() {
   let total = document.createElement('canvas');
   total.setAttribute('id', 'total-proportion');
   total.setAttribute('height', '150');
+  total.className = 'yolo'
 
   let totaljs = document.createElement('script');
   totaljs.setAttribute('type', 'text/javascript');
@@ -236,6 +237,7 @@ function processFees() {
   let proportion = document.createElement('canvas');
   proportion.setAttribute('id', 'proportion');
   proportion.setAttribute('height', '40');
+  proportion.className = 'yolo';
 
   let proportionjs = document.createElement('script');
   proportionjs.setAttribute('type', 'text/javascript');
