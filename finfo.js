@@ -175,7 +175,7 @@ function processFees() {
   // Add total insurace fees proportion
   let total = document.createElement('canvas');
   total.setAttribute('id', 'total-proportion');
-  total.setAttribute('height', '150');
+  total.setAttribute('height', '100vh');
   total.className = 'yolo'
 
   let totaljs = document.createElement('script');
@@ -264,10 +264,18 @@ function processFees() {
       data: ${JSON.stringify(data)}});`);
 
 
-  page.appendChild(proportion);
-  page.appendChild(total);
-  page.appendChild(proportionjs);
-  page.appendChild(totaljs);
+  // Add proportion to new section
+  let ps = document.createElement('section')
+  let title = document.createElement('label');
+  let section = document.getElementsByClassName('prem-trend-info')[0];
+  title.className = 'block-title';
+  title.textContent = '保費第一年與全齡佔比';
+  ps.appendChild(title);
+  ps.appendChild(proportion);
+  ps.appendChild(total);
+  ps.appendChild(proportionjs);
+  ps.appendChild(totaljs);
+  section.parentNode.insertBefore(ps, section.nextSibling);
 }
 
 
