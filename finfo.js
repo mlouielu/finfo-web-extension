@@ -31,8 +31,13 @@ function processFees() {
   const regex = /^(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})? 元/gm;
   const formatter = new Intl.NumberFormat('zh-TW');
 
-  var tabs = document.getElementsByClassName('premium-tab');
+  var tabs = [].slice.call(document.getElementsByClassName('premium-tab')).sort(
+    function(a, b) {
+	  return parseInt(a.getAttribute('data-tab-index')) > parseInt(b.getAttribute('data-tab-index')) ? 1  : -1;
+	});
   var contract_end = new defaultDict([]);
+  var proportion_keys = [];
+  var proportion_values = [];
   for (let tab of tabs) {
 	let first_age = 0;
 	let calculate_it = 0;
@@ -66,6 +71,11 @@ function processFees() {
 	// Which year it end?
 	contract_name = document.querySelectorAll(`[data-tab-index="${tab.getAttribute("data-tab-index")}"]`)[0].textContent;
 	contract_end.get(first_age + prices.length).push(contract_name);
+
+	// First year proportion
+	console.log(contract_name);
+	proportion_keys.push(contract_name);
+	proportion_values.push(prices[0]);
 
 	// Align to 5 years
 	let align = (5 - (first_age % 5)) % 5;
@@ -156,6 +166,48 @@ function processFees() {
 
   table.appendChild(d);
   page.appendChild(table);
+
+  // Add pie
+  let pied = document.createElement('canvas');
+  pied.setAttribute('id', 'proportion');
+  pied.setAttribute('height', '40');
+  page.appendChild(pied)
+
+  let piejs = document.createElement('script');
+  piejs.setAttribute('type', 'text/javascript');
+  page.appendChild(piejs);
+
+  // Remove 總保費
+  proportion_values.shift();
+  proportion_keys.shift();
+
+  let bgColor = [
+	"#FF6384","#4BC0C0","#FFCE56","#D0AFFF","#FFA163",
+	"#70879d","#CF9E9E","#879d70","#a8947f","#36A2EB"
+  ];
+
+  let data = {
+	labels: ['總保費比值'],
+	datasets: []
+  }
+
+  for (let i = 0; i < proportion_keys.length; ++i) {
+	data.datasets.push(
+	  {
+		label: proportion_keys[i], data: [proportion_values[i]],
+		backgroundColor: bgColor[i % bgColor.length]
+	});
+  }
+
+  piejs.textContent =
+    ("var ctx = document.getElementById('proportion').getContext('2d');" +
+     `new Chart(ctx, {
+      options: {
+        tooltips: {   mode: 'nearest' },
+        plugins: { stacked100: {enable: true} }
+      },
+      type: 'horizontalBar',
+      data: ${JSON.stringify(data)}});`);
 }
 
 var observer = new MutationObserver(function(mutations) {
