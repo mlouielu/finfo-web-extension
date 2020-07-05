@@ -175,8 +175,7 @@ function processFees() {
   // Add total insurace fees proportion
   let total = document.createElement('canvas');
   total.setAttribute('id', 'total-proportion');
-  total.setAttribute('height', '100vh');
-  total.className = 'yolo'
+  total.className = 'yolo prem-line-chart'
 
   let totaljs = document.createElement('script');
   totaljs.setAttribute('type', 'text/javascript');
@@ -225,6 +224,7 @@ function processFees() {
     ("var ctx = document.getElementById('total-proportion').getContext('2d');" +
      `new Chart(ctx, {
       options: {
+        maintainAspectRatio: false,
         scales: {
           xAxes: [{ stacked: true }],
           yAxes: [{ stacked: true }]
@@ -236,7 +236,6 @@ function processFees() {
 
   let proportion = document.createElement('canvas');
   proportion.setAttribute('id', 'proportion');
-  proportion.setAttribute('height', '40');
   proportion.className = 'yolo';
 
   let proportionjs = document.createElement('script');
@@ -257,6 +256,7 @@ function processFees() {
     ("var ctx = document.getElementById('proportion').getContext('2d');" +
      `new Chart(ctx, {
       options: {
+        maintainAspectRatio: false,
         tooltips: {   mode: 'nearest' },
         plugins: { stacked100: {enable: true} }
       },
@@ -264,18 +264,31 @@ function processFees() {
       data: ${JSON.stringify(data)}});`);
 
 
-  // Add proportion to new section
+  // Add first year proportion to new section
   let ps = document.createElement('section')
   let title = document.createElement('label');
   let section = document.getElementsByClassName('prem-trend-info')[0];
+  ps.className = 'yolo';
+  ps.style = "position: relative; width: 100%; height: 30vh;";
   title.className = 'block-title';
-  title.textContent = '保費第一年與全齡佔比';
+  title.textContent = '第一年保費佔比';
   ps.appendChild(title);
   ps.appendChild(proportion);
-  ps.appendChild(total);
   ps.appendChild(proportionjs);
-  ps.appendChild(totaljs);
   section.parentNode.insertBefore(ps, section.nextSibling);
+
+
+  // Add total proportion to new section
+  section = document.getElementById('product-quote-analyses');
+  ps = document.createElement('section');
+  ps.style = "position: relative; width: 100%; height: 60vh;";
+  title = document.createElement('label');
+  title.className = 'block-title';
+  title.textContent = '全齡保費佔比';
+  ps.appendChild(title);
+  ps.appendChild(total);
+  ps.appendChild(totaljs);
+  section.appendChild(ps);
 }
 
 
