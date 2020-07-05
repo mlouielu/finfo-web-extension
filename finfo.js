@@ -39,7 +39,7 @@ function processFees() {
   var contract_price = {};
   var proportion_keys = [];
   var proportion_values = [];
-  var first_age = 0;
+  var first_age = -1;
 
   for (let tab of tabs) {
 	let calculate_it = 0;
@@ -48,7 +48,7 @@ function processFees() {
 	for (let pd of tab.getElementsByClassName('premium-div')) {
 	  if (!pd.classList.contains('hide')) {
 		calculate_it = 1;
-		if (first_age === 0) {
+		if (first_age === -1) {
 		  first_age = parseInt(pd.getElementsByClassName('age')[0].textContent.match(/\d+/gm));
 		}
 	  }
@@ -95,7 +95,7 @@ function processFees() {
 	  d.appendChild(age);
 	  d.appendChild(price);
 
-	  age.textContent = `${first_age}~${first_age + align} 歲`
+	  age.textContent = `${first_age}~${first_age + align - 1} 歲`
 	  price.textContent = formatter.format(prices.slice(0, align).reduce((a, b) => a + b)) + ' 元';
 	  tab.appendChild(d);
 
