@@ -281,6 +281,7 @@ function processFees() {
   // Add total proportion to new section
   section = document.getElementById('product-quote-analyses');
   ps = document.createElement('section');
+  ps.className = 'yolo';
   ps.style = "position: relative; width: 100%; height: 60vh;";
   title = document.createElement('label');
   title.className = 'block-title';
