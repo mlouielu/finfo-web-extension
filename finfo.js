@@ -242,7 +242,7 @@ function processFees() {
   let proportionjs = document.createElement('script');
   proportionjs.setAttribute('type', 'text/javascript');
 
-  data.labels = ['總保費比值'];
+  data.labels = ['第一年總保費比值'];
   data.datasets = [];
 
   for (let i = 0; i < proportion_keys.length; ++i) {
