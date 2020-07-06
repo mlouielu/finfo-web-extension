@@ -2,7 +2,7 @@
   "description": "Insurance fees & proportion calculation for finfo.tw",
   "manifest_version": 2,
   "name": "finfo - 保險費總額與佔比計算外掛",
-  "version": "1.5",
+  "version": "1.6",
   "homepage_url": "https://github.com/mlouielu/finfo-web-extension",
   "browser_specific_settings": {
 	"gecko": {
