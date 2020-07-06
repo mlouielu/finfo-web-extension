@@ -1,7 +1,7 @@
 {
-  "description": "Insurance fees calculation for finfo.tw",
+  "description": "Insurance fees & proportion calculation for finfo.tw",
   "manifest_version": 2,
-  "name": "finfo",
+  "name": "finfo - 保險費總額與佔比計算外掛",
   "version": "1.5",
   "homepage_url": "https://github.com/mlouielu/finfo-web-extension",
   "browser_specific_settings": {
@@ -10,7 +10,9 @@
 	}
   },
   "icons": {
-    "48": "icons/border-48.png"
+	"16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+	"128": "icons/icon-128.png"
   },
   "content_scripts": [
     {
